@@ -73,19 +73,18 @@ $application->on('connect', function($application, $client) {
 });
 
 
-
-$application->on('update', function($application, $client) {
-	echo "\n===================\nUpdate : ".microtime(true).''."\n===================\n";
-	return true;	
-});
-
-
-
-
-$application->on('echo', function($application, $client, $message1, $message2=null) {
-	echo "\n===================\nEcho : ".$client->getId().' : '.$message1.' - '.$message2."\n===================\n";
+$application->on('message', function($application, $client, $data) {
+	$application->broadcast('message', array('message'=>$data['message']));
 	return true;
 });
+
+
+
+$application->on('update', function($application, $client) {
+	//echo "\n===================\nUpdate : ".microtime(true).''."\n===================\n";
+	//return true;	
+});
+
 
 
 

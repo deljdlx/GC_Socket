@@ -8,6 +8,9 @@
 
 <link rel="stylesheet" href="style.css"/>
 
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="jquery-mousewheel/jquery.mousewheel.min.js"></script>
+<script src="block.js"></script>
 
 <script src="../library/websocket/client.js"></script>
 <script src="../library/websocket/message.js"></script>
@@ -26,11 +29,9 @@
 
 <div class="viewport">
 
-	
+
 	<div style="position: absolute; top:50%; left:0; width:100%; border-top:solid#A00 2px; height:1px"></div>
-
 	<div style="position: absolute; left:50%; top:0; width:1px; border-left:solid#A00 2px; height:100%"></div>
-
 	<div style="position: absolute; top:50%; left:50%; height:32px; width:32px; border:solid #A00 2px; margin-left:-16px; margin-top:-16px;"></div>
 
 
@@ -48,10 +49,6 @@
 
 </body>
 
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-<script src="jquery-mousewheel/jquery.mousewheel.min.js"></script>
-
-<script src="block.js"></script>
 <script>
 
 
@@ -61,9 +58,17 @@ Element.prototype.transform=function(value) {
 	this.style.transform=value;
 	this.style.WebkitTransform=value;
 	this.style.MozTransform=value;
-	this.style.MsTransform=value;
 }
 
+
+
+
+function rotateAssembly(x, y) {
+	jQuery('.assembly').css({
+		'-moz-transform': 'rotateY('+x+'deg) rotateX('+y+'deg)',
+		'-webkit-transform': 'rotateY('+x+'deg) rotateX('+y+'deg)',
+	});
+}
 
 
 
@@ -73,22 +78,9 @@ var universeOffsetY=jQuery('.universe').height()/8;
 
 
 
-
-/*
-jQuery('.universe').css({
-	left: universeOffsetX+'px',
-	top: universeOffsetY+'px'
-});
-*/
-
-
-
-
 //=====================================================================================================
+//websocket event handling
 //=====================================================================================================
-
-
-
 
 var client=new GC_Client('ws://127.0.0.1:8000/test');
 client.connect();
@@ -105,19 +97,18 @@ client.on('synchronize', function(data) {
 	}
 });
 
-
-
-function rotateAssembly(x, y) {
-	jQuery('.assembly').css({
-		'-moz-transform': 'rotateY('+x+'deg) rotateX('+y+'deg)',
-		'-webkit-transform': 'rotateY('+x+'deg) rotateX('+y+'deg)',
-	});
-}
+//=====================================================================================================
+//block initialisation
+//=====================================================================================================
 
 var block=new Block(300,150,150, 0,0, 0);
 block.render('.assembly');
 block.rotateY(30);
 
+
+//=====================================================================================================
+//event handling
+//=====================================================================================================
 
 document.onmousemove=function(event) {
 	if(!drag) {
