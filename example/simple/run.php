@@ -9,25 +9,20 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require(__DIR__ . '/../library/wrench/lib/SplClassLoader.php');
+chdir(__DIR__.'/../../');
 
-
-
-//echo gethostname();
-//die();
-
-
-
-//$host= gethostname();
-//$ip = gethostbyname($host);
-//echo $ip;
-//die();
+require('library/wrench/lib/SplClassLoader.php');
 
 
 $ip='172.21.9.113';
 
-$classLoader = new SplClassLoader('Wrench', __DIR__ . '/../library/wrench/lib');
+$classLoader = new SplClassLoader('Wrench', 'library/wrench/lib');
 $classLoader->register();
+
+require('library/GC/WebSocket/Server.php');
+require('library/GC/WebSocket/Message.php');
+
+
 
 $server = new \Wrench\Server('ws://'.$ip.':8000/', array(
     'check_origin'               => false,
@@ -62,10 +57,10 @@ $server = new \Wrench\Server('ws://'.$ip.':8000/', array(
 //     )
 ));
 
-include(__DIR__.'/websocketserver.php');
 
 
-$application=new WebsocketServer();
+
+$application=new \GC\WebSocket\Server();
 
 $application->on('disconnect', function($application, $client) {
 	echo "\n===================\nDisconnected : ".$client->getId().''."\n===================\n";
@@ -88,13 +83,8 @@ $application->on('update', function($application, $client) {
 
 
 $application->on('echo', function($application, $client, $message1, $message2=null) {
-
-	return include(__DIR__.'/service/echo.php');
-
-	/*
 	echo "\n===================\nEcho : ".$client->getId().' : '.$message1.' - '.$message2."\n===================\n";
-	*/
-	//return true;		
+	return true;
 });
 
 

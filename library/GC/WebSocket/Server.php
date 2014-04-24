@@ -1,38 +1,12 @@
 <?php
+namespace GC\WebSocket;
+
 
 use Wrench\Application\Application;
-//use Wrench\Application\NamedApplication;
 
 
 
-class Message
-{
-
-	protected $type;
-	protected $data;
-
-	public function __construct($type, $data, $channel=0) {
-		$this->channel=$channel;
-		$this->type=$type;
-		$this->data=$data;
-	}
-	
-	
-	public function __toString() {
-		
-		return json_encode(
-			array(
-				'type'=>$this->type,
-				'data'=>$this->data,
-				'time'=>time()
-			)
-		);
-	}
-}
-
-
-
-class WebsocketServer extends Application
+class Server extends Application
 {
 
 protected $lastTimestamp = null;
@@ -46,7 +20,6 @@ protected $lastTimestamp = null;
 
 
 	public function on($eventName, $callBack) {
-	
 		$this->callbacks[$eventName]=$callBack;
 	}
 	
