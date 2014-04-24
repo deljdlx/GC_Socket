@@ -1,4 +1,4 @@
 GC_Socket
 =========
 
-Easy PHP socket lib
+Fast and easy Websocket with php. Based on https://github.com/varspool/Wrench
