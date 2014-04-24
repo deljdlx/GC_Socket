@@ -9,7 +9,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require(__DIR__ . '/../library/websocket/lib/SplClassLoader.php');
+require(__DIR__ . '/../library/wrench/lib/SplClassLoader.php');
 
 
 
@@ -26,7 +26,7 @@ require(__DIR__ . '/../library/websocket/lib/SplClassLoader.php');
 
 $ip='172.21.9.113';
 
-$classLoader = new SplClassLoader('Wrench', __DIR__ . '/../library/websocket/lib');
+$classLoader = new SplClassLoader('Wrench', __DIR__ . '/../library/wrench/lib');
 $classLoader->register();
 
 $server = new \Wrench\Server('ws://'.$ip.':8000/', array(
@@ -62,7 +62,7 @@ $server = new \Wrench\Server('ws://'.$ip.':8000/', array(
 //     )
 ));
 
-include('websocketserver.php');
+include(__DIR__.'/websocketserver.php');
 
 
 $application=new WebsocketServer();
