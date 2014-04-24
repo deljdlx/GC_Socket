@@ -9,8 +9,7 @@ class Message
 	protected $type;
 	protected $data;
 
-	public function __construct($type, $data, $channel=0) {
-		$this->channel=$channel;
+	public function __construct($type, $data) {
 		$this->type=$type;
 		$this->data=$data;
 	}

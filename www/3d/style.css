@@ -1,0 +1,155 @@
+
+
+	.face {
+		border: solid 2px #0064cd;
+		position: absolute;
+
+		background-color: rgba(100,100,100, 0.3);
+		text-align: center;
+
+
+		transform-origin : 0 0 0;
+		-moz-transform-origin : 0 0 0;
+		-webkit-transform-origin : 0 0 0;
+		-ms-transform-origin : 0 0 0;
+
+		
+		
+		
+	}
+
+
+	.front {
+		/*background-image:url(http://texturezine.com/wp-content/uploads/2009/10/Spray-Wall-Texture-01.jpg);*/
+	}
+
+	.top {
+		background-color: rgba(255,0,0,0.3);
+		transform : rotateX(90deg);
+		-moz-transform : rotateX(90deg);
+		-webkit-transform : rotateX(90deg);
+		-ms-transform : rotateX(90deg);
+		
+	}
+
+	.bottom {
+		-transform : rotateX(90deg);
+		-webkit-transform : rotateX(90deg);
+		-moz-transform : rotateX(90deg);
+		-ms-transform : rotateX(90deg);
+	}
+
+
+	.right {
+		transform : rotateY(-90deg);
+		-moz-transform : rotateY(-90deg);
+		-webkit-transform : rotateY(-90deg);
+		-ms-transform : rotateY(-90deg);
+		
+	}
+
+
+	.left {
+		transform : rotateY(-90deg);
+		-moz-transform : rotateY(90deg);
+		-webkit-transform : rotateY(-90deg);
+		-ms-transform : rotateY(-90deg);
+		
+	}
+
+
+
+	.back {
+		
+	}
+
+
+	.front {
+	}
+
+
+	.block{
+	
+		position: absolute;
+		transform-style: preserve-3d;
+		-webkit-transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		
+
+	}
+
+
+
+	.universe {
+
+		/*background-color:rgba(200,200,200,1);*/
+
+		position: absolute;
+
+		height:100%;
+		width:100%;
+
+
+		top:0;
+		left:0;
+
+
+
+
+
+
+		-moz-transform-origin : 50% 50% 50%;
+		-moz-transform-style: preserve-3d;
+
+		-webkit-transform-origin : 50% 50% 50%;
+		-webkit-transform-style: preserve-3d;
+
+		-ms-transform-origin : 50% 50% 50%;
+		-ms-transform-style: preserve-3d;
+
+	}
+
+	.universe .assembly {
+		position: absolute;
+		top:50%;
+		left:50%;
+		transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-webkit-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+	}
+
+
+
+.circlePart {
+
+	position: absolute;
+
+	background-image: url(bg.jpg);
+
+
+	/*backface-visibility: hidden;*/
+
+	-moz-transform-origin : 0 0 0;
+}
+
+
+
+.viewport {
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	position: absolute;
+	background-color:#EEE;
+
+	overflow: hidden;
+
+
+	-moz-perspective: 800px;
+	-webkit-perspective: 800px;
+
+
+	
+}

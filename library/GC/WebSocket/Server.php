@@ -75,24 +75,37 @@ protected $lastTimestamp = null;
 		
 		$type=$data['type'];
 		
-		if(is_callable($this->callbacks[$type])) {
+		$parameters['data']=$data['data'];
 		
-			array_unshift($data['data'], $client);
-			array_unshift($data['data'], $this);
+		if(isset($this->callbacks[$type])) {
+		
+			array_unshift($parameters, $client);
+			array_unshift($parameters, $this);
 
 			return call_user_func_array(array(
 				$this->callbacks[$type], '__invoke'
-			), $data['data']);
+			), $parameters);
 		}
 		else {
-			print_r($data);
+			//print_r($data);
 		}
 	}
 	
-
-
-	public function broadCast($message) {
 	
+	public function synchronize($fromClient, $messageType, $data) {
+		$message=new Message($messageType, $data);
+		if(count($this->clients)) {
+			foreach($this->clients as $client) {	
+				if($client->getId()!=$fromClient->getId()) {
+					$client->send((string) $message);
+				}
+			}
+		}
+	}
+
+
+	public function broadCast($messageType, $data) {
+		$message=new Message($messageType, $data);
 		if(count($this->clients)) {
 			foreach($this->clients as $client) {	
 				$client->send((string) $message);

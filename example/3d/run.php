@@ -14,7 +14,7 @@ chdir(__DIR__.'/../../');
 require('library/wrench/lib/SplClassLoader.php');
 
 
-$ip='172.21.9.113';
+$ip='127.0.0.1';
 
 $classLoader = new SplClassLoader('Wrench', 'library/wrench/lib');
 $classLoader->register();
@@ -74,9 +74,12 @@ $application->on('connect', function($application, $client) {
 
 
 
-$application->on('update', function($application, $client) {
-	echo "\n===================\nUpdate : ".microtime(true).''."\n===================\n";
-	return true;	
+$application->on('synchronise', function($application, $client, $data) {
+	$application->synchronize($client, 'synchronize', array(
+		'x'=>$data['x'],
+		'y'=>$data['y'],
+		'z'=>$data['z'],
+	));
 });
 
 

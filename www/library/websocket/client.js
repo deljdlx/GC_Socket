@@ -23,11 +23,11 @@
 	var data=JSON.parse(message.data);
 
 	if(typeof(this.handlers[data.type])!='undefined') {
-		console.debug('handling');
+		//console.debug('handling');
 		return this.handlers[data.type](data);
 	}
 	else {
-		console.debug(data);
+		//console.debug(data);
 	}
   }
   
