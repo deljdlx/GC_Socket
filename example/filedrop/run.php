@@ -14,12 +14,13 @@ chdir(__DIR__.'/../../');
 require('library/wrench/lib/SplClassLoader.php');
 
 
-$ip='127.0.0.1';
+$ip='192.168.1.4';
 
 $classLoader = new SplClassLoader('Wrench', 'library/wrench/lib');
 $classLoader->register();
 
 require('library/GC/WebSocket/Server.php');
+require('library/GC/WebSocket/Client.php');
 require('library/GC/WebSocket/Message.php');
 
 
@@ -64,31 +65,37 @@ $application=new \GC\WebSocket\Server();
 
 $application->on('disconnect', function($application, $client) {
 	echo "\n===================\nDisconnected : ".$client->getId().''."\n===================\n";
+	$application->broadcast('disconnect', array('id'=>$client->getId()));
 	return true;
 });
 
+
 $application->on('connect', function($application, $client) {
 	echo "\n===================\nConnection : ".$client->getId().''."\n===================\n";
+	$application->broadCastUserList();
 	return true;	
 });
 
 
-
-$application->on('synchronise', function($application, $client, $data) {
-	$application->synchronize($client, 'synchronize', array(
-		'x'=>$data['x'],
-		'y'=>$data['y'],
-		'z'=>$data['z'],
-	));
-});
-
-
-
-
-$application->on('echo', function($application, $client, $message1, $message2=null) {
-	echo "\n===================\nEcho : ".$client->getId().' : '.$message1.' - '.$message2."\n===================\n";
+$application->on('message', function($application, $client, $data) {
+	$application->broadcast('message', array('message'=>$data['message']));
 	return true;
 });
+
+
+$application->on('fileUploaded', function($application, $client, $data) {
+	$application->broadcast('downloadFile', array('file'=>'download.php?fileId='.$data['fileId']));
+	return true;
+});
+
+
+
+
+$application->on('update', function($application, $client) {
+	//echo "\n===================\nUpdate : ".microtime(true).''."\n===================\n";
+	//return true;	
+});
+
 
 
 

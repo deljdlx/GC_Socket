@@ -35,7 +35,10 @@ protected $lastTimestamp = null;
 	}
 
 
-    public function onConnect($client) {
+    public function onConnect($connection) {
+	
+		$client=new Client($connection);
+	
         $this->clients[$client->getId()]=$client;
 		$client->send((string) new Message('connect', array(
 			'id'=>$client->getId()
@@ -69,9 +72,7 @@ protected $lastTimestamp = null;
 
 	public function handleMessage($data, $client) {
 		$data=json_decode($data, true);
-		
-		print_r($data);
-		
+	
 		
 		$type=$data['type'];
 		
@@ -112,11 +113,38 @@ protected $lastTimestamp = null;
 			}
 		}	
 	}
-
 	
 	
-	
-	
-	
-	
+	public function broadCastUserList() {
+		
+		foreach($this->clients as $client) {
+			$data=array();
+			foreach($this->clients as $exportedClient) {
+				if($exportedClient->getId()!=$client->getId()) {
+					$data[]=$exportedClient->toArray();
+				}
+			}
+			$message=new Message('userList', $data);
+			$client->send($message);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
