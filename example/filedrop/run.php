@@ -84,7 +84,7 @@ $application->on('message', function($application, $client, $data) {
 
 
 $application->on('fileUploaded', function($application, $client, $data) {
-	$application->broadcast('downloadFile', array('file'=>'download.php?fileId='.$data['fileId']));
+	$application->sendTo($data['userId'], 'downloadFile', array('file'=>'download.php?fileId='.$data['fileId']));
 	return true;
 });
 

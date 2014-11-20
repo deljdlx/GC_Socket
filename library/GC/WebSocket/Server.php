@@ -92,6 +92,14 @@ protected $lastTimestamp = null;
 		}
 	}
 	
+	public function sendTo($clientId, $messageType, $data) {
+		if(isset($this->clients[$clientId])) {
+			$client=$this->clients[$clientId];
+			$message=new Message($messageType, $data);
+			$client->send($message);
+		}
+	}
+	
 	
 	public function synchronize($fromClient, $messageType, $data) {
 		$message=new Message($messageType, $data);

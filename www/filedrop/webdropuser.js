@@ -47,8 +47,7 @@ WebDropUser.prototype.sendFiles=function(files) {
 	console.debug(files);
 
 	for (var i = 0; i < files.length; i++) {
-		console.debug(this.id);
-		//new FileUpload(files[i]);
+		new FileUpload(files[i], this.id);
 	}
 }
 

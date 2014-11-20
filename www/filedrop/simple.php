@@ -107,7 +107,7 @@ client.connect();
 
 
 
-function FileUpload(file) {
+function FileUpload(file, clientId) {
 	var reader = new FileReader();  
 	var xhr = new XMLHttpRequest();
 	this.xhr = xhr;
@@ -121,7 +121,11 @@ function FileUpload(file) {
 
 
 	xhr.addEventListener("load", function(e) {
-		client.send('fileUploaded', {fileId: xhr.responseText});
+
+		client.send('fileUploaded', {
+			fileId: xhr.responseText,
+			userId:clientId
+		});
 	}, true);
 
 
