@@ -68,7 +68,7 @@ html, body {
 }
 
 .circle {
-	border: solid 1px #999;
+	border: solid 1px #CCC;
 	border-radius:100%;
 	position: absolute;
 	left:50%;
@@ -86,12 +86,12 @@ html, body {
 	position: absolute;
 	height:100%;
 	left:50%;
-	width:3px;
+	width:1px;
 
-	box-shadow: -0px 0 10px #0A0;
+	/*box-shadow: -0px 0 10px #0A0;*/
 
 
-	background-color:#999;
+	background-color:#000;
 	top:0;
 }
 
@@ -104,10 +104,10 @@ html, body {
    -moz-animation-name:rotation;
 	-o-animation-name:rotation;
    
-	animation-duration:3s;
-	-webkit-animation-duration:3s;
-   -moz-animation-duration:3s;
-	-o-animation-duration:3s;
+	animation-duration:6s;
+	-webkit-animation-duration:6s;
+   -moz-animation-duration:6s;
+	-o-animation-duration:6s;
 
    animation-iteration-count:infinite;
 	-webkit-animation-iteration-count:infinite;
@@ -178,13 +178,17 @@ client.on('connect', function(data) {
 });
 
 client.on('disconnect', function(data) {
-	console.debug(data);
-	jQuery('.webDropUser[data-id='+data.data.id+']').remove();
+	
+	jQuery('.webDropUser[data-id='+data.data.id+']').fadeOut(500, function() {
+		jQuery('.webDropUser[data-id='+data.data.id+']').remove();
+	})
+
+	
 });
 
 
 client.on('message', function(data) {
-	console.debug(data.data.id);
+	
 });
 
 client.on('userList', function(data) {
@@ -196,7 +200,14 @@ client.on('userList', function(data) {
 	for(var i=0; i<userlist.length; i++) {
 		if(!jQuery(container).find('.webDropUser[data-id='+userlist[i].id+']').length) {
 			var user=new WebDropUser(userlist[i].id);
-			jQuery(container).append(user.getElement());
+
+			var element=user.getElement();
+			element.style.display='none';
+			jQuery(container).append(element);
+			jQuery(element).fadeIn(500);
+
+
+
 		}
 	}
 });
